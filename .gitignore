@@ -2,6 +2,7 @@
 .terraform/
 *.tfstate
 *.tfstate.*
+*.tfplan
 
 # Variables
 terraform.tfvars
