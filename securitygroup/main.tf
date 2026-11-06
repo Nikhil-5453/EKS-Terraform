@@ -1,13 +1,18 @@
 resource "aws_security_group" "eks_vpc_security_group" {
   name        = "eks_vpc_sg"
   description = "Security group for EKS VPC"
-  vpc_id      = aws_vpc.eks_vpc.id
+  vpc_id      = var.vpc_id
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  dynamic "ingress" {
+    for_each = length(var.ssh_allowed_cidrs) > 0 ? [1] : []
+
+    content {
+      description = "SSH access"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = var.ssh_allowed_cidrs
+    }
   }
 
   ingress {
@@ -32,10 +37,10 @@ resource "aws_security_group" "eks_vpc_security_group" {
   }
 
   tags = {
-    Name = "eks_vpc_sg"
-    Automation = var.Automation
-    Team = var.Team
-    User = var.User
-    Environment = var.Environment
+    Name        = "eks_vpc_sg"
+    Automation  = var.automation
+    Team        = var.team
+    User        = var.user
+    Environment = var.environment
   }
 }

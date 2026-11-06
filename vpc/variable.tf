@@ -3,8 +3,8 @@ variable "vpc_cidr_block" {
   type        = string
 }
 
-variable "Availability_zones" {
-  description = "List of availability zones"
+variable "availability_zones" {
+  description = "Availability zones used by the subnets"
   type        = list(string)
 }
 
@@ -18,23 +18,23 @@ variable "private_subnet_cidrs" {
   type        = list(string)
 }
 
-variable "Automation" {
-  description = "Automation flag"
+variable "automation" {
+  description = "Automation resource tag"
   type        = string
 }
 
-variable "Team" {
-  description = "Team name"
+variable "team" {
+  description = "Team resource tag"
   type        = string
 }
 
-variable "User" {
-  description = "User name"
+variable "user" {
+  description = "User resource tag"
   type        = string
 }
 
-variable "Environment" {
-  description = "Environment name"
+variable "environment" {
+  description = "Environment resource tag"
   type        = string
 }
 

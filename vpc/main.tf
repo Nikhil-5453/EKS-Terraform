@@ -4,11 +4,11 @@ resource "aws_vpc" "eks_vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "eks_vpc"
-    Automation = var.Automation
-    Team = var.Team
-    User = var.User
-    Environment = var.Environment
+    Name        = "eks_vpc"
+    Automation  = var.automation
+    Team        = var.team
+    User        = var.user
+    Environment = var.environment
   }
 }
 
@@ -16,15 +16,15 @@ resource "aws_subnet" "public_subnets" {
   count                   = length(var.public_subnet_cidrs)
   vpc_id                  = aws_vpc.eks_vpc.id
   cidr_block              = var.public_subnet_cidrs[count.index]
-  availability_zone       = var.Availability_zones[count.index]
+  availability_zone       = var.availability_zones[count.index]
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "EKS-public-subnet-${count.index + 1}"
-    Automation = var.Automation
-    Team = var.Team
-    User = var.User
-    Environment = var.Environment
+    Name                     = "EKS-public-subnet-${count.index + 1}"
+    Automation               = var.automation
+    Team                     = var.team
+    User                     = var.user
+    Environment              = var.environment
     "kubernetes.io/role/elb" = "1"
   }
 }
@@ -33,14 +33,14 @@ resource "aws_subnet" "private_subnets" {
   count             = length(var.private_subnet_cidrs)
   vpc_id            = aws_vpc.eks_vpc.id
   cidr_block        = var.private_subnet_cidrs[count.index]
-  availability_zone = var.Availability_zones[count.index]
+  availability_zone = var.availability_zones[count.index]
 
   tags = {
-    Name = "EKS-private-subnet-${count.index + 1}"
-    Automation = var.Automation
-    Team = var.Team
-    User = var.User
-    Environment = var.Environment
+    Name        = "EKS-private-subnet-${count.index + 1}"
+    Automation  = var.automation
+    Team        = var.team
+    User        = var.user
+    Environment = var.environment
   }
 }
 
@@ -48,11 +48,11 @@ resource "aws_internet_gateway" "eks_igw" {
   vpc_id = aws_vpc.eks_vpc.id
 
   tags = {
-    Name = "eks_igw"
-    Automation = var.Automation
-    Team = var.Team
-    User = var.User
-    Environment = var.Environment
+    Name        = "eks_igw"
+    Automation  = var.automation
+    Team        = var.team
+    User        = var.user
+    Environment = var.environment
   }
 }
 
@@ -65,11 +65,11 @@ resource "aws_route_table" "public_route_table" {
   }
 
   tags = {
-    Name = "eks_public_route_table"
-    Automation = var.Automation
-    Team = var.Team
-    User = var.User
-    Environment = var.Environment
+    Name        = "eks_public_route_table"
+    Automation  = var.automation
+    Team        = var.team
+    User        = var.user
+    Environment = var.environment
   }
 }
 
@@ -84,23 +84,23 @@ resource "aws_nat_gateway" "eks_nat_gateway" {
   subnet_id     = aws_subnet.public_subnets[0].id
 
   tags = {
-    Name = "eks_nat_gateway"
-    Automation = var.Automation
-    Team = var.Team
-    User = var.User
-    Environment = var.Environment
+    Name        = "eks_nat_gateway"
+    Automation  = var.automation
+    Team        = var.team
+    User        = var.user
+    Environment = var.environment
   }
 }
 
 resource "aws_eip" "nat_eip" {
-    domain = "vpc"
+  domain = "vpc"
 
   tags = {
-    Name = "eks_nat_eip"
-    Automation = var.Automation
-    Team = var.Team
-    User = var.User
-    Environment = var.Environment
+    Name        = "eks_nat_eip"
+    Automation  = var.automation
+    Team        = var.team
+    User        = var.user
+    Environment = var.environment
   }
 }
 
@@ -109,15 +109,15 @@ resource "aws_route_table" "private_route_table" {
 
   route {
     cidr_block     = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.eks_nat_gateway.id
+    nat_gateway_id = aws_nat_gateway.eks_nat_gateway.id
   }
 
   tags = {
-    Name = "eks_private_route_table"
-    Automation = var.Automation
-    Team = var.Team
-    User = var.User
-    Environment = var.Environment
+    Name        = "eks_private_route_table"
+    Automation  = var.automation
+    Team        = var.team
+    User        = var.user
+    Environment = var.environment
   }
 }
 

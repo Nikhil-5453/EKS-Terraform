@@ -1,0 +1,4 @@
+aws_region          = "ap-south-1"
+ssh_allowed_cidrs   = []
+environment         = "DEV-EKS"
+team                = "DevOps"

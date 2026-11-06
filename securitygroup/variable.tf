@@ -1,40 +1,31 @@
-variable "vpc_cidr_block" {
-  description = "The CIDR block for the VPC"
+variable "vpc_id" {
+  description = "ID of the VPC for the security group"
   type        = string
 }
 
-variable "Availability_zones" {
-  description = "List of availability zones"
+variable "ssh_allowed_cidrs" {
+  description = "CIDR blocks allowed to access SSH"
   type        = list(string)
+  default     = []
 }
 
-variable "public_subnet_cidrs" {
-  description = "Public subnet CIDR blocks"
-  type        = list(string)
-}
-
-variable "private_subnet_cidrs" {
-  description = "Private subnet CIDR blocks"
-  type        = list(string)
-}
-
-variable "Automation" {
-  description = "Automation flag"
+variable "automation" {
+  description = "Automation resource tag"
   type        = string
 }
 
-variable "Team" {
-  description = "Team name"
+variable "team" {
+  description = "Team resource tag"
   type        = string
 }
 
-variable "User" {
-  description = "User name"
+variable "user" {
+  description = "User resource tag"
   type        = string
 }
 
-variable "Environment" {
-  description = "Environment name"
+variable "environment" {
+  description = "Environment resource tag"
   type        = string
 }
 
