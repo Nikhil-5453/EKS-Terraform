@@ -25,7 +25,7 @@ variable "public_subnet_cidrs" {
 variable "private_subnet_cidrs" {
   description = "CIDR blocks for the private subnets"
   type        = list(string)
-  default     = ["172.16.30.0/24"]
+  default     = ["172.16.30.0/24", "172.16.32.0/24", "172.16.34.0/24"]
 }
 
 variable "ssh_allowed_cidrs" {
