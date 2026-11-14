@@ -34,6 +34,12 @@ variable "ssh_allowed_cidrs" {
   default     = []
 }
 
+variable "cluster_name" {
+  description = "Name of the EKS cluster"
+  type        = string
+  default     = "eks-1"
+}
+
 variable "automation" {
   description = "Automation resource tag"
   type        = string
